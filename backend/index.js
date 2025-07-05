@@ -4,8 +4,9 @@ const path = require("path")
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
-const PORT = process.env.PORT || 8080;
-require("./ConnectDb");
+// const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
+require("./ConnectDb")
 
 
 // const loginRoutes = require("./routes/loginRoutes");
