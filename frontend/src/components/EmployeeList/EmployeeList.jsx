@@ -184,23 +184,26 @@ const EmployeeList = () => {
                         </div>
 
                         {/* Pagination */}
-                        <div className="d-flex justify-content-between align-items-center flex-column flex-md-row gap-2 mt-3">
+                        <div className="d-flex justify-content-between align-items-center gap-2 mt-3 flex-wrap">
                             <button
-                                className="btn btn-primary w-25 w-md-auto"
+                                className="btn btn-primary"
                                 onClick={handlePrev}
                                 disabled={currentPage === 1}
                             >
                                 Previous
                             </button>
-                            <span>Page {currentPage} of {totalPages}</span>
+
+                            <span className="mx-2">Page {currentPage} of {totalPages}</span>
+
                             <button
-                                className="btn btn-primary w-25 w-md-auto"
+                                className="btn btn-primary"
                                 onClick={handleNext}
                                 disabled={currentPage === totalPages}
                             >
                                 Next
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>
