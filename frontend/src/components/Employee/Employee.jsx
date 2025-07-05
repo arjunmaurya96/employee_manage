@@ -99,7 +99,8 @@ const Employee = () => {
         console.log("file log", e.target.files);
         const formdata = new FormData();
         formdata.append("file", e.target.files[0])
-        axios.post("http://localhost:8080/file/save", formdata)
+        // axios.post("http://localhost:8080/file/save", formdata)
+        axios.post("https://employee-manage-q8om.onrender.com/file/save", formdata)
             .then((res) => {
                 console.log(res.data);
                 setEmployee({ ...employee, imgUpload: res.data })
@@ -124,7 +125,7 @@ const Employee = () => {
         ];
 
         if (validations.includes(false)) return;
-        axios.post("http://localhost:8080/emp/employee", employee)
+        axios.post("https://employee-manage-q8om.onrender.com/emp/employee", employee)
             .then((res) => {
                 if (res) {
                     toast.success("Employee Added Successfully...!")

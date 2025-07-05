@@ -21,7 +21,7 @@ const Login = () => {
       const { email, password } = login;
 
       if (email !== "" && password !== "") {
-        const response = await axios.post("http://localhost:8080/api/login", login);
+        const response = await axios.post("https://employee-manage-q8om.onrender.com/api/login", login);
         const token = response.data.data?.jwtToken;
 
         if (token) {

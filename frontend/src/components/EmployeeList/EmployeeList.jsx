@@ -11,7 +11,7 @@ const EmployeeList = () => {
 
     const getPaginatedEmployees = async (page = 1) => {
         try {
-            const res = await axios.get(`http://localhost:8080/emp/pages?page=${page}`);
+            const res = await axios.get(`https://employee-manage-q8om.onrender.com/emp/pages?page=${page}`);
             setEmployees(res.data.data);
             setTotalPages(res.data.totalPages);
             setCurrentPage(res.data.currentPage);
@@ -37,7 +37,7 @@ const EmployeeList = () => {
 
     const fetchEmployees = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/emp/empget");
+            const res = await axios.get("https://employee-manage-q8om.onrender.com/emp/empget");
             setEmployees(res.data?.Employee || []);
         } catch (error) {
             console.error("Error fetching employees:", error);
@@ -54,7 +54,7 @@ const EmployeeList = () => {
 
     const deleteEmployee = async (_id) => {
         try {
-            const res = await axios.delete(`http://localhost:8080/emp/empdelete/${_id}`);
+            const res = await axios.delete(`https://employee-manage-q8om.onrender.com/emp/empdelete/${_id}`);
 
             if (res.status === 200) {
                 setMsg("Record deleted successfully!");
@@ -75,7 +75,7 @@ const EmployeeList = () => {
 
         try {
             if (key.trim() !== "") {
-                const result = await axios.get(`http://localhost:8080/emp/search/${key}`);
+                const result = await axios.get(`https://employee-manage-q8om.onrender.com/emp/search/${key}`);
                 setEmployees(result.data);
             } else {
                 fetchEmployees();

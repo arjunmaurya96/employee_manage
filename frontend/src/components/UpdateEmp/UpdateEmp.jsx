@@ -23,10 +23,10 @@ const UpdateEmp = () => {
     console.log("HELLO EMPLOYEE", employee);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/emp/findbyidemp/" + params._id)
+        axios.get("https://employee-manage-q8om.onrender.com/emp/findbyidemp/" + params._id)
             .then((res) => {
                 // console.log("SET KAR RHA HU",res.data.data);
-                
+
                 setEmployee(res.data.data); // Set the state with fetched data
             })
             .catch((error) => {
@@ -39,7 +39,7 @@ const UpdateEmp = () => {
         console.log("file log", e.target.files);
         const formdata = new FormData();
         formdata.append("file", e.target.files[0])
-        axios.post("http://localhost:8080/file/save", formdata)
+        axios.post("https://employee-manage-q8om.onrender.com/file/save", formdata)
             .then((res) => {
                 console.log(res.data);
                 setEmployee({ ...employee, imgUpload: res.data })
@@ -52,11 +52,11 @@ const UpdateEmp = () => {
 
     const updateEmployee = (e) => {
         e.preventDefault();
-        axios.put("http://localhost:8080/emp/updateemp/" + params._id, employee)
+        axios.put("https://employee-manage-q8om.onrender.com/emp/updateemp/" + params._id, employee)
             .then((res) => {
                 if (res) {
                     toast.success("Employee Update Successfully...!")
-                   navigate("/employeelist")
+                    navigate("/employeelist")
                 } else {
                     toast.error("Employee not added...?")
                 }
@@ -120,8 +120,8 @@ const UpdateEmp = () => {
                                 <label for="formGroupExampleInput2" class="form-label">Course</label>
                                 <div>
                                     <input type="checkbox" id="mca" name="course" value="MCA" checked={employee?.course?.find((v) => v == 'MCA') ? true : false} onChange={(e) => {
-                                        
-                                        
+
+
                                         if (e.target.checked) {
                                             setEmployee({ ...employee, course: [...employee.course, e.target.value] });
                                         } else {
@@ -161,8 +161,8 @@ const UpdateEmp = () => {
 
                             <div class="mb-3">
                                 <label for="formGroupExampleInput" class="form-label">Img Upload  </label>
-                                <input type="file" name='img-upload' onChange={filehandler}  class="form-control shadow" />
-                            <img src={employee.imgUpload} style={{height:"30px" , width:"30px"}} alt="" />
+                                <input type="file" name='img-upload' onChange={filehandler} class="form-control shadow" />
+                                <img src={employee.imgUpload} style={{ height: "30px", width: "30px" }} alt="" />
                             </div>
                             <div class="mb-3">
                                 <div>

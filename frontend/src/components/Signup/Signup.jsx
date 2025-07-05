@@ -22,7 +22,7 @@ const Signup = () => {
 
     if (name && email && password) {
       try {
-        const res = await axios.post("http://localhost:8080/api/signup", signup);
+        const res = await axios.post("https://employee-manage-q8om.onrender.com/api/signup", signup);
         if (res.data) {
           toast.success("Registered successfully!");
           setSignup({ name: "", email: "", password: "" });
