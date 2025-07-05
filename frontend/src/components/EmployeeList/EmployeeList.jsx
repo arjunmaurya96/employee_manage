@@ -92,11 +92,12 @@ const EmployeeList = () => {
         <>
             <div className="container">
                 <div className="row">
-                    <div className="col-md-12">
-                        <h1 className="text-center">Employee List</h1>
+                    <div className="col-12">
+                        <h1 className="text-center mb-4">Employee List</h1>
 
-                        <div className='d-flex justify-content-end align-items-center gap-3 mb-3'>
-                            <div className='w-50'>
+                        {/* Search + Filter Section */}
+                        <div className="row g-2 mb-3 align-items-center">
+                            <div className="col-12 col-md-6">
                                 <input
                                     type="text"
                                     value={searchText}
@@ -105,7 +106,7 @@ const EmployeeList = () => {
                                     onChange={searchHandle}
                                 />
                             </div>
-                            <div>
+                            <div className="col-12 col-md-4">
                                 <select className="form-select">
                                     <option value="">--select--</option>
                                     <option value="">name</option>
@@ -114,65 +115,95 @@ const EmployeeList = () => {
                                     <option value="">date</option>
                                 </select>
                             </div>
+                            <div className="col-12 col-md-2 text-md-end">
+                                <Link to="/employee" className="btn btn-warning w-100 w-md-auto">Add Employee</Link>
+                            </div>
                         </div>
 
-                        <div className='text-end mb-3'>
-                            <Link to="/employee" className='btn btn-warning btn-sm'>Add Employee</Link>
-                        </div>
-
-                        <table className="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Number</th>
-                                    <th>Designation</th>
-                                    <th>Gender</th>
-                                    <th>Course</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {employees.length > 0 ? employees.map((employee, index) => (
-                                    <tr key={employee._id}>
-                                        <td>{(currentPage - 1) * 3 + index + 1}</td>
-                                        <td><img src={employee.imgUpload} alt={employee.name} width="50" height="50" /></td>
-                                        <td>{employee.name}</td>
-                                        <td>{employee.email}</td>
-                                        <td>{employee.number}</td>
-                                        <td>{employee.designation}</td>
-                                        <td>{employee.gender}</td>
-                                        <td>{employee.course?.join(', ')}</td>
-                                        <td>{new Date(employee.createdAt).toLocaleDateString()}</td>
-                                        <td>
-                                            <Link to={`/updateemp/${employee._id}`} className="btn btn-success btn-sm">Edit</Link>
-                                            &nbsp;
-                                            <button className="btn btn-danger btn-sm" onClick={() => {
-                                                if (window.confirm("Are you sure you want to delete this employee?")) {
-                                                    deleteEmployee(employee._id);
-                                                }
-                                            }}>Delete</button>
-                                        </td>
-                                    </tr>
-                                )) : (
+                        {/* Employee Table */}
+                        <div className="table-responsive">
+                            <table className="table table-bordered text-center align-middle">
+                                <thead className="table-light">
                                     <tr>
-                                        <td colSpan="10" className="text-center">No employees found</td>
+                                        <th>S.No</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Number</th>
+                                        <th>Designation</th>
+                                        <th>Gender</th>
+                                        <th>Course</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {employees.length > 0 ? employees.map((employee, index) => (
+                                        <tr key={employee._id}>
+                                            <td>{(currentPage - 1) * 3 + index + 1}</td>
+                                            <td>
+                                                <img
+                                                    src={employee.imgUpload}
+                                                    alt={employee.name}
+                                                    width="50"
+                                                    height="50"
+                                                    className="img-fluid rounded"
+                                                />
+                                            </td>
+                                            <td>{employee.name}</td>
+                                            <td>{employee.email}</td>
+                                            <td>{employee.number}</td>
+                                            <td>{employee.designation}</td>
+                                            <td>{employee.gender}</td>
+                                            <td>{employee.course?.join(', ')}</td>
+                                            <td>{new Date(employee.createdAt).toLocaleDateString()}</td>
+                                            <td>
+                                                <div className="d-grid gap-2 d-md-block">
+                                                    <Link to={`/updateemp/${employee._id}`} className="btn btn-success btn-sm me-1">Edit</Link>
+                                                    <button
+                                                        className="btn btn-danger btn-sm"
+                                                        onClick={() => {
+                                                            if (window.confirm("Are you sure you want to delete this employee?")) {
+                                                                deleteEmployee(employee._id);
+                                                            }
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )) : (
+                                        <tr>
+                                            <td colSpan="10" className="text-center">No employees found</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
 
-                        <div className="d-flex justify-content-between">
-                            <button className="btn btn-primary" onClick={handlePrev} disabled={currentPage === 1}>Previous</button>
+                        {/* Pagination */}
+                        <div className="d-flex justify-content-between align-items-center flex-column flex-md-row gap-2 mt-3">
+                            <button
+                                className="btn btn-primary w-100 w-md-auto"
+                                onClick={handlePrev}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
                             <span>Page {currentPage} of {totalPages}</span>
-                            <button className="btn btn-primary" onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
+                            <button
+                                className="btn btn-primary w-100 w-md-auto"
+                                onClick={handleNext}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
+
 
 
         </>
