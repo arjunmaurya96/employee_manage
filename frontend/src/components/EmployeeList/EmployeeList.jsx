@@ -96,7 +96,7 @@ const EmployeeList = () => {
                     <div className="col-12">
                         <h1 className="text-center mb-4">Employee List</h1>
 
-                        {/* Search + Filter */}
+                        {/* Search + Filter Section */}
                         <div className="row g-2 mb-3 align-items-center">
                             <div className="col-12 col-md-6">
                                 <input
@@ -121,47 +121,8 @@ const EmployeeList = () => {
                             </div>
                         </div>
 
-                        {/* Employee Cards for Mobile */}
-                        <div className="d-block d-md-none">
-                            {employees.length > 0 ? employees.map((employee, index) => (
-                                <div key={employee._id} className="card mb-3 shadow-sm">
-                                    <div className="card-body">
-                                        <div className="d-flex align-items-center mb-3">
-                                            <img
-                                                src={employee.imgUpload}
-                                                alt={employee.name}
-                                                className="rounded-circle me-3"
-                                                width="50"
-                                                height="50"
-                                            />
-                                            <h5 className="mb-0">{employee.name}</h5>
-                                        </div>
-                                        <p className="mb-1"><strong>Email:</strong> {employee.email}</p>
-                                        <p className="mb-1"><strong>Number:</strong> {employee.number}</p>
-                                        <p className="mb-1"><strong>Designation:</strong> {employee.designation}</p>
-                                        <p className="mb-1"><strong>Gender:</strong> {employee.gender}</p>
-                                        <p className="mb-1"><strong>Course:</strong> {employee.course?.join(', ')}</p>
-                                        <p className="mb-2"><strong>Date:</strong> {new Date(employee.createdAt).toLocaleDateString()}</p>
-                                        <div className="d-flex justify-content-between">
-                                            <Link to={`/updateemp/${employee._id}`} className="btn btn-success btn-sm">Edit</Link>
-                                            <button
-                                                className="btn btn-danger btn-sm"
-                                                onClick={() => {
-                                                    if (window.confirm("Are you sure you want to delete this employee?")) {
-                                                        deleteEmployee(employee._id);
-                                                    }
-                                                }}
-                                            >Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )) : (
-                                <div className="text-center">No employees found</div>
-                            )}
-                        </div>
-
-                        {/* Table View for Desktop */}
-                        <div className="table-responsive d-none d-md-block">
+                        {/* Employee Table */}
+                        <div className="table-responsive">
                             <table className="table table-bordered text-center align-middle">
                                 <thead className="table-light">
                                     <tr>
@@ -181,7 +142,15 @@ const EmployeeList = () => {
                                     {employees.length > 0 ? employees.map((employee, index) => (
                                         <tr key={employee._id}>
                                             <td>{(currentPage - 1) * 3 + index + 1}</td>
-                                            <td><img src={employee.imgUpload} alt={employee.name} width="50" height="50" /></td>
+                                            <td>
+                                                <img
+                                                    src={employee.imgUpload}
+                                                    alt={employee.name}
+                                                    width="50"
+                                                    height="50"
+                                                    className="img-fluid rounded"
+                                                />
+                                            </td>
                                             <td>{employee.name}</td>
                                             <td>{employee.email}</td>
                                             <td>{employee.number}</td>
@@ -190,12 +159,19 @@ const EmployeeList = () => {
                                             <td>{employee.course?.join(', ')}</td>
                                             <td>{new Date(employee.createdAt).toLocaleDateString()}</td>
                                             <td>
-                                                <Link to={`/updateemp/${employee._id}`} className="btn btn-success btn-sm me-1">Edit</Link>
-                                                <button className="btn btn-danger btn-sm" onClick={() => {
-                                                    if (window.confirm("Are you sure you want to delete this employee?")) {
-                                                        deleteEmployee(employee._id);
-                                                    }
-                                                }}>Delete</button>
+                                                <div className="d-grid gap-2 d-md-block">
+                                                    <Link to={`/updateemp/${employee._id}`} className="btn btn-success btn-sm me-1">Edit</Link>
+                                                    <button
+                                                        className="btn btn-danger btn-sm"
+                                                        onClick={() => {
+                                                            if (window.confirm("Are you sure you want to delete this employee?")) {
+                                                                deleteEmployee(employee._id);
+                                                            }
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     )) : (
@@ -209,9 +185,21 @@ const EmployeeList = () => {
 
                         {/* Pagination */}
                         <div className="d-flex justify-content-between align-items-center flex-column flex-md-row gap-2 mt-3">
-                            <button className="btn btn-primary w-50 w-md-auto" onClick={handlePrev} disabled={currentPage === 1}>Previous</button>
+                            <button
+                                className="btn btn-primary w-25 w-md-auto"
+                                onClick={handlePrev}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
                             <span>Page {currentPage} of {totalPages}</span>
-                            <button className="btn btn-primary w-50 w-md-auto" onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
+                            <button
+                                className="btn btn-primary w-25 w-md-auto"
+                                onClick={handleNext}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
                         </div>
                     </div>
                 </div>
